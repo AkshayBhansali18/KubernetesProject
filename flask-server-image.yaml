@@ -39,10 +39,11 @@ metadata:
 spec:
   selector:
     app: flask-server
+  type: LoadBalancer  
   ports:
     - protocol: TCP
       port: 27017
       targetPort: 27017
-
+      nodePort: 30001
    
 
