@@ -1,0 +1,48 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: flask-server
+  labels:
+    app: flask-server
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: flask-server
+  template:
+    metadata:
+      labels:
+        app: flask-server
+    spec:
+      containers:
+      - name: flask-server
+        image: quay.io/akshaybhansali/flask-server
+        command: ["python3","app.py"]
+        ports:
+        - containerPort: 27017
+        env:
+         - name: Flask_Server_Config
+           valueFrom:
+            configMapKeyRef:
+              name: student-college
+              key: studentCollege
+         - name: Flask_Server_Config
+           valueFrom:
+            configMapKeyRef:
+              name: student-name
+              key: studentName
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: flask-service
+spec:
+  selector:
+    app: flask-server
+  ports:
+    - protocol: TCP
+      port: 27017
+      targetPort: 27017
+
+   
+

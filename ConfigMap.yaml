@@ -1,0 +1,7 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+   name: flask-server-configmap
+data:
+   studentName: akshay-bhansali
+   studentCollege: ramaiah-institute-of-technology
